@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Secrium</title>
+    <link>http://secruim.io/</link>
+    <description>Recent content on Secrium</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Apr 2018 09:46:15 -0400</lastBuildDate>
+    
+	<atom:link href="http://secruim.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Git 102</title>
+      <link>http://secruim.io/post/git-102/</link>
+      <pubDate>Thu, 03 Jan 2019 00:48:56 +0200</pubDate>
+      
+      <guid>http://secruim.io/post/git-102/</guid>
+      <description>Branching With every commit command, this happen:
+ Git checksums each staged files and store them in a snapshot tree. Stores committed files (blobs) in Git repository Creates a commit object that has:  Metadata A pointer to the snapshot tree A pointer to the commit that came immediately before it   Each commit object contains a pointer to the snapshot of the staged content, and pointers to the commit or commits that directly came before this commit (its parent or parents).</description>
+    </item>
+    
+    <item>
+      <title>Git 101</title>
+      <link>http://secruim.io/post/git-101/</link>
+      <pubDate>Thu, 03 Jan 2019 00:48:49 +0200</pubDate>
+      
+      <guid>http://secruim.io/post/git-101/</guid>
+      <description>What is Git? Git is Distributed Version Control System (DVCS). Where from security point of view, it provides:
+ Audit trail, answering who did what, why, and when Recovery, allowing to revert to previous working state Backup, where each client has a full back of repository and its history Integrity, everything is check-summed with SHA-1 non-repudiation, where every change has a valid owner Separation of Duty, where author introduces the change and committer accepts the change  It supports a non-linear development (branches), simple, very fast, and everything stored as stream of snapshots.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>http://secruim.io/about/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://secruim.io/about/</guid>
+      <description>Keep posted for what to come!!!</description>
+    </item>
+    
+  </channel>
+</rss>

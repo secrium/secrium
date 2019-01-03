@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Git 102 &middot; Secrium</title>
+  <meta name="description" content="Introduction to version control with Git tool, Second part" />
+  
+  <link rel="icon" type="image/x-icon" href="http://secruim.io/img/favicon.ico">
+  
+  <link rel="icon" type="image/png" href="http://secruim.io/img/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
+  <link rel="stylesheet" href="http://secruim.io/css/style.css" />
+  <link rel="stylesheet" href="http://secruim.io/css/xcode.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://secruim.io/css/latolatinfonts.css" />
+  
+  <style>
+    body {
+      background: #ecedef url("/img/ignasi_pattern_s.png") repeat;
+    }
+  </style>
+  
+</head>
+  <body class="single-body">
+    <nav class="nav-bar side-padding">
+  <h1 class="nav-header"><a href="http://secruim.io/" class="nav-text">
+    Secrium
+  </a></h1>
+  <div class="hamburger-menu">
+		<input type="checkbox" onclick="hamburgerMenuPressed()"/>
+		<span></span>
+		<span></span>
+    <ul class="hamburger-menu-overlay">
+      <li><a href="http://secruim.io/" class="hamburger-menu-overlay-link">Home</a></li>
+      
+			<li><a href="http://secruim.io/about/" class="hamburger-menu-overlay-link">About</a></li>
+			
+      
+			<li><a href="http://secruim.io/categories/versioning" class="hamburger-menu-overlay-link">Versioning</a></li>
+			
+    </ul>
+  </div>
+</nav>
+    <main class="content side-text-padding">
+      <article class="post dropcase">
+        <header class="post-header">
+        	<h1 class="post-title">Git 102</h1>
+          <p class="post-date">Posted <time datetime="2019-01-03">Jan 3, 2019</time></p>
+        </header>
+        
+        <figure class="post-figure">
+          <img src="http://secruim.io/img/lucas-benjamin-565254-unsplash.jpg">
+        </figure>
+        
+        
+
+<h1 id="branching">Branching</h1>
+
+<p>With every <strong>commit</strong> command, this happen:</p>
+
+<ul>
+<li><strong>Git</strong> checksums each <em>staged</em> files and store them in a <strong>snapshot</strong> tree.</li>
+<li>Stores <em>committed</em> files (blobs) in <strong>Git</strong> repository</li>
+<li>Creates a <strong>commit</strong> object that has:
+
+<ul>
+<li>Metadata</li>
+<li>A pointer to the <strong>snapshot</strong> tree</li>
+<li>A pointer to the <strong>commit</strong> that came immediately before it</li>
+</ul></li>
+</ul>
+
+<p>Each <strong>commit</strong> object contains a pointer to the <em>snapshot</em> of the <em>staged</em> content, and pointers to the <strong>commit</strong> or <strong>commits</strong> that directly came before this <strong>commit</strong> (its parent or parents). In case of a result of <strong>merge</strong> of two or more <strong>branches</strong>, multiple parents for a <strong>commit</strong> that results from.</p>
+
+<p>A <strong>branch</strong> is a lightweight movable pointer to one of the <strong>commits</strong>. The default <strong>branch</strong> name is <em>master</em>, created with <code>git init</code> command.</p>
+
+<p>Basically, <strong>Branching</strong> is a diverge from the main line of development and without impacting the main line.</p>
+
+<h2 id="creating-branch">Creating Branch</h2>
+
+<p>The command <code>git branch &lt;branch-name&gt;</code> will create a new <strong>branch</strong>. Simply a new movable pointer, pointing to the current <strong>commit</strong>.</p>
+
+<p><strong>HEAD</strong> is a special pointer that points to which <strong>branch</strong> is currently in use. This can be seen with <code>git log --oneline --decorate</code> or <code>git branch</code> command.</p>
+
+<h2 id="switching-branch">Switching Branch</h2>
+
+<p>When a new <strong>branch</strong> is creating, <strong>HEAD</strong> pointer does not point to it. To switch to new <strong>branch</strong> <code>git checkout &lt;branch-name&gt;</code> command is used.</p>
+
+<blockquote>
+<p><code>git checkout -b &lt;branch-name&gt;</code> will create a new <strong>branch</strong> and switch to it.</p>
+</blockquote>
+
+<p>When <strong>switching</strong> <strong>branches</strong>, files in  working directory will change. <strong>switching</strong> to an older branch, working directory will be reverted to look like it did the last time <strong>committed</strong> on that <strong>branch</strong>.</p>
+
+<blockquote>
+<p>Changes are isolated in separate <strong>branches</strong> and can switch back and forth between the <strong>branches</strong> and <strong>merge</strong> them, at some point.</p>
+</blockquote>
+
+<p><strong>Git lgos</strong> can show <em>Divergent</em> history of a <strong>Git</strong> repository with this command</p>
+
+<p><code>git log --oneline --decorate --graph --all</code></p>
+
+<blockquote>
+<p>Creating a new <strong>branch</strong> is as quick and simple as writing 41 bytes to a file (40 characters and a newline).</p>
+</blockquote>
+
+<h1 id="merging">Merging</h1>
+
+<p>To merge a branch to another, usually the <em>Master</em> branch, <code>git merge &lt;branch-to-merge&gt;</code> command is used. The <strong>HEAD</strong> pointer determins into which <strong>branch</strong> to merge into. This can be done by switchin (<strong>checkout</strong>) to desired <strong>branch</strong>.</p>
+
+<blockquote>
+<p>If <strong>working directory</strong> or <strong>staging area</strong> has <em>uncommitted</em> changes that conflict with the branch being checking out, Git will not switch <strong>branches</strong>.</p>
+</blockquote>
+
+<p><strong>Fast-forward</strong> merging happens when merging one <strong>commit</strong> with a <strong>commit</strong> that can be reached by following the first <strong>commit</strong>’s history, <strong>Git</strong> moves the pointer forward because there is no divergent work to <strong>merge</strong> together.</p>
+
+<p><strong>Three-way</strong> merging happens when the <strong>commit</strong> on the working <strong>branch</strong> is not a direct ancestor of the <strong>branch</strong> merging in, using the two <em>snapshots</em> pointed to by the <strong>branch</strong> tips and the common ancestor of the two.</p>
+
+<p>Once the <strong>brancd</strong> is <strong>merged</strong>, it can be deleted.<br />
+<code>git branch -d &lt;branch-name&gt;</code></p>
+
+<h2 id="merge-conflicts">Merge Conflicts</h2>
+
+<p>If changed the same part of the same file changed  differently in the two <strong>branches</strong> being merged, <strong>Git</strong> will not be able to <strong>merge</strong> them.</p>
+
+<p><code>git status</code> command can show which are the conflicts. Using the <code>git add &lt;file-name&gt;</code> command marks the conflicted file as resolved.</p>
+
+<blockquote>
+<p><code>git mergetool</code> command launchs a graphical tool to sort the conflict.</p>
+</blockquote>
+
+<h2 id="branch-management">Branch Management</h2>
+
+<p>To list all <strong>branches</strong>, command <code>git branch</code> can be used. <strong>Branch</strong> with * character prefixes, indicates the current <strong>checked out branch</strong>.</p>
+
+<p>To see the last commit on each branch, run <code>git branch -v</code> command.</p>
+
+<p>Options <code>--merged</code> and <code>--no-merged</code> can filter the list to <strong>branches</strong>, that have or have not yet <strong>merged</strong> into the current <strong>branch</strong>. <strong>Merged</strong> <strong>branches</strong> can be safely deleted. While trying to delete <strong>unmerged</strong> <strong>branch</strong> will fail:</p>
+
+<blockquote>
+<p>For force deletion of <strong>unmerged</strong> <strong>branch</strong>, use <code>git delete -D &lt;branch-name&gt;</code> command.</p>
+</blockquote>
+
+<p>To check the <strong>merge</strong> state with respect to some other <strong>branch</strong> without <strong>checking</strong> that other <strong>branch</strong> out first.</p>
+
+<p><em>Example</em></p>
+
+<blockquote>
+<p>what is not <strong>merged</strong> into the master <strong>branch</strong>?<br />
+<code>git checkout testing</code><br />
+<code>git branch --no-merged master</code></p>
+</blockquote>
+
+<h1 id="branching-workflows">Branching Workflows</h1>
+
+<h2 id="long-running-branches">Long-Running Branches</h2>
+
+<p>Having several <strong>branches</strong> that are always open and used for different stages of development cycle; and can <strong>merge</strong> regularly from some of them into others.</p>
+
+<p>Each <strong>Long-Running Branch</strong> is a work silos, where sets of <strong>commits</strong> graduate to a more stable silo when they’re fully tested.</p>
+
+<h2 id="topic-branches">Topic Branches</h2>
+
+<p>It is a <strong>short-lived</strong> branch that is created and used for a single particular feature or related work. It allows to context-switch quickly and completely, as the work is separated into silos where all the changes in that <strong>branch</strong> have to do with that topic. Changes can be kept there for minutes, days, or months, and <strong>merge</strong> them in when they’re ready, regardless of the order in which they were created or worked on.</p>
+
+<blockquote>
+<p>Creating <strong>branches</strong> and <strong>merging</strong> are completely local.</p>
+</blockquote>
+
+<h1 id="remote-branches">Remote Branches</h1>
+
+<p><strong>Remote references</strong> are references (<em>pointers</em>) in a remote repositories, including <strong>branches</strong>, <strong>tags</strong>, and more. <code>git ls-remote &lt;remote&gt;</code>, or <code>git remote show &lt;remote&gt;</code> list all <strong>remote references</strong>.</p>
+
+<p><strong>Remote-tracking</strong> <strong>branches</strong> are references to the state of remote <strong>branches</strong>. They’re local references that cannot be moved; <strong>Git</strong> moves them whenever there is any network communication, to make sure they accurately represent the state of the remote repository.</p>
+
+<p><strong>Remote-tracking</strong> <strong>branches</strong> take the form of <code>&lt;remote&gt;/&lt;branch&gt;</code>.</p>
+
+<p>To synchronize work, <code>git fetch &lt;remote&gt;</code> commandlooks up which server [<strong>remote</strong>] is, fetches any data from it that don’t exists locally, and updates local database, moving [<strong>remote</strong>]/master pointer to its new, more up-to-date position.</p>
+
+<h2 id="pushing">Pushing</h2>
+
+<p>Local <strong>branches</strong> are not automatically synchronized to the remotes with write access. It needs to explicitly <strong>push</strong> the <strong>branches</strong>. <code>git push &lt;remote&gt; &lt;branch&gt;</code> command <strong>push</strong> a specific <strong>branch</strong> to a specific <strong>remote</strong>. Running <code>git push &lt;remote&gt; &lt;branch&gt;:&lt;diff-branch&gt;</code> command will do the same, except the remote <strong>branch</strong> will not be named the same as the local one.</p>
+
+<blockquote>
+<p><strong>Pushing</strong> over HTTPS, <strong>Git</strong> server will ask for username and password for authentication for every <strong>push</strong>. To avoid this setup <em>credential cache</em>, <code>git config --global credential.helper cache</code>.</p>
+</blockquote>
+
+<p>The <code>fetch</code> command fetches only <strong>remote/branch</strong> pointer that cannot be modified.</p>
+
+<p>To be able to work on a remote/branch, it needs to be merged into current working branch, <code>git merge &lt;remote&gt;/&lt;branch&gt;</code>.</p>
+
+<p>To base (<em>start</em>) a local <strong>branch</strong> off a remote-tracking <strong>branch</strong>, simply with this command</p>
+
+<p><code>git checkout -b &lt;branch&gt; &lt;remote&gt;/&lt;branch&gt;</code></p>
+
+<h2 id="tracking-branches">Tracking Branches</h2>
+
+<p><strong>Checking</strong> out a local <strong>branch</strong> from a <strong>remote-tracking branch</strong> automatically creates a <strong>tracking branch</strong>, and the <strong>branch</strong> it tracks is  an <strong>upstream branch</strong>.</p>
+
+<p><strong>Tracking branches</strong> are local <strong>branches</strong> that have a direct relationship to a <strong>remote branch</strong>. This allows <code>git pull</code>, to automatically knows which server (<strong>remote</strong>) to <strong>fetch</strong> from and which <strong>branch</strong> to merge in.</p>
+
+<p>Running <code>git checkout -b &lt;branch&gt; &lt;remote&gt;/&lt;branch&gt;</code>. or the shorthanded command <code>git checkout --track &lt;remote&gt;/&lt;branch&gt;</code> will create a branch that is set up to track <code>&lt;remote&gt;/&lt;branch&gt;</code></p>
+
+<p>If the <strong>local branch</strong> name to <strong>checkout</strong> does not exist and exactly matches a name on only one remote, <strong>Git</strong> will create a tracking branch using a shortcut command; <code>git checkout &lt;branch&gt;</code>.</p>
+
+<p>To set a <strong>remote branch</strong> to an existing <strong>local branch</strong>, or to change the <strong>upstream branch</strong> tracked, the <code>-u</code> or <code>--set-upstream-to</code> option explicitly used.</p>
+
+<p><code>git branch -u &lt;remote&gt;/&lt;branch&gt;</code>
+Branch serverfix set up to track remote branch serverfix from origin.
+Note
+Upstream shorthand
+When you have a tracking branch set up, you can reference its upstream branch with the @{upstream} or @{u} shorthand. So if you’re on the master branch and it’s tracking origin/master, you can say something like git merge @{u} instead of git merge origin/master if you wish.</p>
+
+<p>To list <strong>tracking branches</strong> set up, The option <code>-vv</code> is used with <code>git branch</code> command. It will  list out <strong>local branches</strong> with more information including what each <strong>branch</strong> is tracking and if  <strong>local branch</strong> is <em>ahead</em>, <em>behind</em>, or <em>both</em>; since last <strong>fetch</strong>.</p>
+
+<blockquote>
+<p>For better totally up to date ahead and behind numbers, run <code>git fetch --all</code> before <code>git branch -vv</code>.</p>
+</blockquote>
+
+<h2 id="pulling">Pulling</h2>
+
+<p>While the git fetch command will fetch down all the changes on the server that you don’t have yet, it will not modify your working directory at all. It will simply get the data for you and let you merge it yourself. However, there is a command called git pull which is essentially a git fetch immediately followed by a git merge in most cases. If you have a tracking branch set up as demonstrated in the last section, either by explicitly setting it or by having it created for you by the clone or checkout commands, git pull will look up what server and branch your current branch is tracking, fetch from that server and then try to merge in that remote branch.</p>
+
+<p>Generally it’s better to simply use the fetch and merge commands explicitly as the magic of git pull can often be confusing.</p>
+
+<h2 id="deleting-remote-branches">Deleting Remote Branches</h2>
+
+<p>Suppose you’re done with a remote branch – say you and your collaborators are finished with a feature and have merged it into your remote’s master branch (or whatever branch your stable codeline is in). You can delete a remote branch using the &ndash;delete option to git push. If you want to delete your serverfix branch from the server, you run the following:</p>
+
+<p><code>$ git push origin --delete serverfix</code><br />
+To <a href="https://github.com/schacon/simplegit">https://github.com/schacon/simplegit</a></p>
+
+<ul>
+<li>[deleted]         serverfix</li>
+</ul>
+
+<p>Basically all this does is remove the pointer from the server. The Git server will generally keep the data there for a while until a garbage collection runs, so if it was accidentally deleted, it’s often easy to recover.</p>
+
+      </article>
+      
+    </main>
+    <nav class="end-nav side-padding">
+      
+      <a ontouchstart="cardPressed.call(this)" ontouchend="cardReleased.call(this)" ontouchmove="cardReleased.call(this)" 
+  href="http://secruim.io/post/git-101/" class="card blog-card" rel="bookmark" >
+    
+    <div class="card-img-container">
+      <p class="card-img-overlay">Next Article</p>
+      <img src="http://secruim.io/img/lucas-benjamin-565254-unsplash.jpg" class="card-img">
+    </div>
+    
+  <article class="card-body">
+    <h2 class="card-title">Git 101</h2>
+    <p class="card-text">Introduction to version control with Git tool,  First part</p>
+    <div class="card-subtext muted-text">
+      <p>Posted <time datetime="2019-01-03 13:00">Jan 3, 2019</time></p>
+      <p>#Versioning </p>
+    </div>
+  </article>
+</a>
+      
+      <a ontouchstart="cardPressed.call(this)" ontouchend="cardReleased.call(this)" ontouchmove="cardReleased.call(this)" 
+  href="http://secruim.io/" class="card home-card" style="background-image: url( /img/grey-cloud.jpg )" rel="bookmark" >
+  Home
+</a>
+    </nav>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://secruim.io/js/core.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+  </body>
+</html>

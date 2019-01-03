@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Git 101 &middot; Secrium</title>
+  <meta name="description" content="Introduction to version control with Git tool,  First part" />
+  
+  <link rel="icon" type="image/x-icon" href="http://secruim.io/img/favicon.ico">
+  
+  <link rel="icon" type="image/png" href="http://secruim.io/img/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
+  <link rel="stylesheet" href="http://secruim.io/css/style.css" />
+  <link rel="stylesheet" href="http://secruim.io/css/xcode.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://secruim.io/css/latolatinfonts.css" />
+  
+  <style>
+    body {
+      background: #ecedef url("/img/ignasi_pattern_s.png") repeat;
+    }
+  </style>
+  
+</head>
+  <body class="single-body">
+    <nav class="nav-bar side-padding">
+  <h1 class="nav-header"><a href="http://secruim.io/" class="nav-text">
+    Secrium
+  </a></h1>
+  <div class="hamburger-menu">
+		<input type="checkbox" onclick="hamburgerMenuPressed()"/>
+		<span></span>
+		<span></span>
+    <ul class="hamburger-menu-overlay">
+      <li><a href="http://secruim.io/" class="hamburger-menu-overlay-link">Home</a></li>
+      
+			<li><a href="http://secruim.io/about/" class="hamburger-menu-overlay-link">About</a></li>
+			
+      
+			<li><a href="http://secruim.io/categories/versioning" class="hamburger-menu-overlay-link">Versioning</a></li>
+			
+    </ul>
+  </div>
+</nav>
+    <main class="content side-text-padding">
+      <article class="post dropcase">
+        <header class="post-header">
+        	<h1 class="post-title">Git 101</h1>
+          <p class="post-date">Posted <time datetime="2019-01-03">Jan 3, 2019</time></p>
+        </header>
+        
+        <figure class="post-figure">
+          <img src="http://secruim.io/img/lucas-benjamin-565254-unsplash.jpg">
+        </figure>
+        
+        
+
+<h1 id="what-is-git">What is Git?</h1>
+
+<p>Git is Distributed Version Control System (<strong>DVCS</strong>). Where from security point of view, it provides:</p>
+
+<ul>
+<li><strong>Audit trail</strong>, answering <em>who</em> did <em>what</em>, <em>why</em>, and <em>when</em></li>
+<li><strong>Recovery</strong>, allowing to revert to previous working state</li>
+<li><strong>Backup</strong>, where each client has a full back of repository and its history</li>
+<li><strong>Integrity</strong>, everything is check-summed with <a href="https://en.wikipedia.org/wiki/SHA-1">SHA-1</a></li>
+<li><strong>non-repudiation</strong>, where every change has a valid owner</li>
+<li><strong>Separation of Duty</strong>, where <em>author</em> introduces the change and <em>committer</em> accepts the change</li>
+</ul>
+
+<p>It supports a non-linear development (<strong>branches</strong>), simple, very fast, and everything stored as <strong>stream of snapshots</strong>. Every snapshot has a reference, which has a copy of changed files and/or links to non-changed files.</p>
+
+<h1 id="git-structure">Git Structure</h1>
+
+<p>Git structure consist of three concepts</p>
+
+<ul>
+<li><strong>Git Directory</strong>, stores the metadata and object database of a project.</li>
+<li><strong>Working Tree</strong>, a specific version checkout of project&rsquo;s files, pulled out from the compressed database in the Git directory and placed on disk for use.</li>
+<li><strong>Staging area</strong>, a file hosting information about what will go into next commit.</li>
+</ul>
+
+<h2 id="git-workflow">Git Workflow</h2>
+
+<ul>
+<li>Files get modified in <strong>working tree</strong></li>
+<li>Selected files added to <strong>staging area</strong> for next commit</li>
+<li>Commit create a snapshot of files in <strong>staging area</strong> and stores the snapshot permanently to <strong>Git directory</strong></li>
+</ul>
+
+<h1 id="git-initial-setup">Git Initial Setup</h1>
+
+<p>Install Git from <a href="https://git-scm.com/downloads">here</a>. Git is configured with <code>git config</code> command, with three different attributes:</p>
+
+<ul>
+<li><code>--system</code>, applies settings to all users and repositories</li>
+<li><code>--global</code>, applies settings to a specific user and user&rsquo;s reporsitories</li>
+<li><code>--local</code>, applies settings to a specific reporsitory</li>
+</ul>
+
+<blockquote>
+<p><code>--local</code> overrides <code>--global</code> &amp; <code>--system</code>, where <code>--global</code> overrides <code>--system</code></p>
+</blockquote>
+
+<h2 id="setup-idenity">Setup Idenity</h2>
+
+<p>Done only once and used by every Git commit to track <em>who</em> did the changes</p>
+
+<p><code>git config --global user.name &quot;Firs Last&quot;</code><br />
+<code>git config --global user.email &quot;first.last@example.com&quot;</code></p>
+
+<h2 id="setup-editor">Setup Editor</h2>
+
+<p>Optionally, the default text editor used by Git messages can be changed.</p>
+
+<p><code>git config --global core.editor &quot;path-to-executable&quot;</code></p>
+
+<blockquote>
+<p>To configure VSCode, this command can be used<br />
+<code>git config --global core.editor &quot;code --wait&quot;</code></p>
+</blockquote>
+
+<h2 id="check-settings">Check Settings</h2>
+
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>Command</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>To list all configurations (all scopes) settings</td>
+<td><code>git config --list</code></td>
+</tr>
+
+<tr>
+<td>To check a specific key configuratio</td>
+<td><code>git config &lt;key.pair&gt;</code></td>
+</tr>
+
+<tr>
+<td>To query the origin key configuration&rsquo;s value</td>
+<td><code>git config --show-origin &lt;key.pair&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="starting-with-git">Starting with Git</h1>
+
+<p>A repo can be <strong>initialized</strong> or <strong>cloned</strong>.</p>
+
+<h2 id="initializing-repository">Initializing Repository</h2>
+
+<p>To turn a directory to a Git repository, run this command within the targeted directory.<br />
+<code>git init</code></p>
+
+<p>A new <strong>.git</strong> subdirectory get created, containing a Git repository skeleton.</p>
+
+<h2 id="cloning-a-repository">Cloning a Repository</h2>
+
+<p>Cloning makes a local copy of a remote Git repository (all data and its history). This is done via this command.</p>
+
+<p><strong>using HTTPS transfer protocol</strong><br />
+<code>git clone https://site-name.com/user/repo-name</code><br />
+<strong>using SSH transfer protocol</strong><br />
+<code>git clone git@site-name.com:user/repo-name</code></p>
+
+<blockquote>
+<p>Adding addtional argument with directory name at the end of the command, will clone the remote repository to that directory.</p>
+</blockquote>
+
+<p>The command will:</p>
+
+<ul>
+<li>Create a directory called <strong>repo-name</strong></li>
+<li>Initialize a <strong>.git</strong> directory inside <strong>repo-name</strong> directory</li>
+<li><strong>Pull</strong> down all data of remote repository</li>
+<li>Check out the latest version of all files in <strong>working tree</strong>.</li>
+</ul>
+
+<blockquote>
+<p>Files in <strong>working tree</strong> are in <em>unmodified</em> state and <em>tracked</em>.</p>
+</blockquote>
+
+<h2 id="git-status">Git Status</h2>
+
+<p>Each file in working directory can be in one of two states:</p>
+
+<ul>
+<li><strong>Tracked</strong>, file in the last snapshot, which can be:
+
+<ul>
+<li><em>unmodified</em></li>
+<li><em>modified</em></li>
+<li><em>staged</em></li>
+</ul></li>
+<li><strong>Untracked</strong>, file not in the last snapshot and not in staging area</li>
+</ul>
+
+<p><strong>Commands</strong></p>
+
+<ul>
+<li><code>git status</code> will show the files state</li>
+<li><code>git add file-name</code> will track new file and add it to <strong>staging</strong> area. Or add a <em>modified</em> file to <strong>staging</strong> area (<em>staged</em>)<br /></li>
+<li><code>git add .</code> will do the same as previous command for all files, except files in <strong>.gitignore</strong> file</li>
+<li><code>git status -s</code> or <code>git status --short</code> will show status for each file in this format</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th><strong>staging area</strong></th>
+<th><strong>working tree</strong></th>
+<th><em>meaning</em></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>M</td>
+<td></td>
+<td><em>modified</em> &amp; <em>staged</em></td>
+</tr>
+
+<tr>
+<td></td>
+<td>M</td>
+<td><em>modified</em> &amp; <strong>not</strong> <em>staged</em></td>
+</tr>
+
+<tr>
+<td>M</td>
+<td>M</td>
+<td><em>modified</em> &amp; <em>staged</em> and <em>modifed</em> again</td>
+</tr>
+
+<tr>
+<td>A</td>
+<td></td>
+<td>new file added (<em>staged</em>)</td>
+</tr>
+
+<tr>
+<td>?</td>
+<td>?</td>
+<td><em>untracked</em> file</td>
+</tr>
+</tbody>
+</table>
+
+<p>To view changes in files, not only the status, <code>git diff</code> command can be used shows the patch of change (the exact lines added and removed)</p>
+
+<p><strong>Commands</strong><br />
+<code>git diff</code> shows <em>unstaged</em> changes<br />
+<code>git diff --staged</code> or <code>git diff --cached</code> shows <em>staged</em> changes to be commited</p>
+
+<h2 id="ignoring-files">Ignoring Files</h2>
+
+<p>In some cases, some file should be excluded from being tracked by Git. Files with secrets or just log files. Ignored files or their pattern needs to be added to <strong>.gitignore</strong> file.  Setting up a <strong>.gitignore</strong> file in the begining avoids accidentally commit files that should not be Git repository.</p>
+
+<p>A single <strong>.gitignore</strong> file in repository root directory, applies recursively to the entire repository. Additional <strong>.gitignore</strong> files can be created in subdirectories. The rules in these nested <strong>.gitignore</strong> files apply only to the files under the directory where they are located.</p>
+
+<p><strong>Patterns</strong></p>
+
+<ul>
+<li>Ignored lines
+
+<ul>
+<li>Blank lines</li>
+<li>Comments lines starting with #</li>
+</ul></li>
+<li>Applied recursively throughout the entire working tree
+
+<ul>
+<li>Start with a forward slash (/) to avoid recursivity</li>
+<li>End with a forward slash (/) to specify a directory</li>
+</ul></li>
+<li>Negate a pattern by starting it with an exclamation point (!)</li>
+<li>Glob patterns
+
+<ul>
+<li>An asterisk (*) matches zero or more characters</li>
+<li>[abc] matches any character inside the brackets</li>
+<li>A question mark (?) matches a single character</li>
+<li>Brackets enclosing characters separated by a hyphen ([0-9]) matches any character between them</li>
+<li>Two asterisks to match nested directories; a/**/z</li>
+</ul></li>
+</ul>
+
+<p><em>Example</em></p>
+
+<blockquote>
+<p># ignore all .a files<br />
+<em>.a<br />
+# but do track lib.a, even though you&rsquo;re ignoring .a files above<br />
+!lib.a<br />
+# only ignore the TODO file in the current directory, not subdir/TODO<br />
+/TODO<br />
+# ignore all files in the build/ directory<br />
+build/<br />
+# ignore doc/notes.txt, but not doc/server/arch.txt<br />
+doc/</em>.txt<br />
+# ignore all .pdf files in the doc/ directory and any of its subdirectories<br />
+doc/*<em>/</em>.pdf</p>
+</blockquote>
+
+<h2 id="committing-changes">Committing Changes</h2>
+
+<p>Only files in staging area can be committed to <strong>Git directory</strong>, anything that is still unstaged will not be committed.</p>
+
+<p><code>git commit</code> command launches default editor to add a title and description (separated by blank line) to the commit message.</p>
+
+<p>Every commit save a snapshot to <strong>Git directory</strong>, which can revert to or compare to later.</p>
+
+<blockquote>
+<p>Adding the <code>-a</code> option to <code>git commit</code> command makes Git automatically stage every file that is already tracked before doing the commit.</p>
+
+<p>Adding the <code>-m &quot;message text&quot;</code> option to <code>git commit</code> command makes Git automatically add message to commit&rsquo;s titel without opening the default editor. Adding it twice, will count the seccond message as commit&rsquo;s descrition.</p>
+</blockquote>
+
+<p><em>Example</em></p>
+
+<blockquote>
+<p><code>git commit -a -m &quot;title&quot; -m &quot;description&quot;</code></p>
+</blockquote>
+
+<h2 id="removing-files">Removing Files</h2>
+
+<p>File removal from <strong>Git</strong> is simply removing from <strong>staging area</strong>, followed by commit. this is done with <code>git rm</code> command, which also removes the file from working directory.</p>
+
+<blockquote>
+<p><code>git rm -f filename</code> command, with force option, is used in case the file is <em>staged</em> and <em>modified</em>. This prevent accidental removal of data that hasn’t yet been recorded in a snapshot and cannot be recovered from Git.</p>
+</blockquote>
+
+<p>To remove accidentally <em>staged</em> file from <strong>staging area</strong>, <code>--cached</code> option can be used</p>
+
+<p><code>git rm --cached filename</code></p>
+
+<blockquote>
+<p>Files, directories, and file-glob patterns can be passed to <code>git rm</code> command.</p>
+</blockquote>
+
+<h2 id="moving-files">Moving Files</h2>
+
+<p><strong>Git</strong> is moving is equivalent to rename operation.</p>
+
+<p><code>git mv file_oldname file_newname</code></p>
+
+<p>Which can be done also by running</p>
+
+<p><code>mv file_oldname file_newname</code><br />
+<code>git rm file_oldname</code><br />
+<code>git add file_newnam</code></p>
+
+<h2 id="review-changes">Review Changes</h2>
+
+<p><code>git log</code> is a power command to view the history of changes within a repository. The command output is in reverse chronological order and has SHA-1 checksum, the author’s name and email, the date written, and the commit message.</p>
+
+<p><strong>Options</strong>
+|command options|description|
+|&mdash;|&mdash;|
+|<code>-p</code>, <code>--patch</code>|shows the difference (the patch output) introduced in each commit (<em>output: add a diff directly following each entry</em>)|
+|<code>--stat</code>|lists abbreviated stats for each commit (<em>output: how many files were changed, and how many lines in those files were added and removed, a summary of the information at the end</em>)|
+|<code>--shortstat</code>|display only the changed/insertions/deletions line from <code>--stat</code>|
+|<code>--name-only</code>|list of files modified after the commit information|
+|<code>--name-status</code>|list of files affected with added/modified/deleted information|
+|<code>--abbrev-commit</code>|only the first few characters of the SHA-1 checksum instead of all 40|
+|<code>--relative-date</code>|date in a relative format (<em>e.g, “1 month ago”</em>)|
+|<code>--graph</code>|an ASCII graph of the branch and merge history beside the log output|
+|<code>--pretty</code>|an alternate format (<em>options: oneline, short, full, fuller, and format (specify format)</em>)|
+|<code>--oneline</code>|shorthand for <code>--pretty=oneline --abbrev-commit</code> used together|</p>
+
+<h3 id="limiting-log">Limiting Log</h3>
+
+<p><code>git log</code> has limiting options to show only a subset of commits.</p>
+
+<p><strong>Options</strong>
+|Option|Description|
+|&mdash;|&mdash;|
+|<code>-&lt;n&gt;</code>|only the last n commits|
+|<code>--since</code>, <code>--after</code>|commits made after the specified date|
+|<code>--until</code>, <code>--before</code>|commits made before the specified date|
+|<code>--author</code>|commits with specified author|
+|<code>--committer</code>|commits with specified committer|
+|<code>--grep</code>|commits with a commit message containing the string|
+|<code>-S</code>|commits adding or removing code matching the string|
+|<code>--no-merges</code>|prevent the display of merge commits|</p>
+
+<blockquote>
+<p>Using multiple instances <code>--author</code> and <code>--grep</code> limita the output to commits that match <strong>any</strong> of the <code>--author</code> patterns and any of the <code>--grep</code> patterns. Adding <code>--all-match</code> option limits the output to just those match all <code>--grep</code> patterns.</p>
+
+<p>The difference between <em>author</em> and <em>committer</em> is that the <em>author</em> is the person who originally wrote the work, whereas the <em>committer</em> is the person who last applied the work</p>
+
+<p>A path filter limit the log output to spcified directories or files. It is always the last option and preceded by double dashes (<code>--</code>) to separate the paths from the options.</p>
+</blockquote>
+
+<p><em>Example</em></p>
+
+<pre><code class="language-powershell">git log --pretty=&quot;%h - %s&quot; --author=name --since=&quot;2017-10-01&quot; --before=&quot;2017-11-01&quot; |
+--no-merges -- t/
+</code></pre>
+
+<h2 id="undo">Undo</h2>
+
+<h3 id="redoing-last-commit">Redoing Last Commit</h3>
+
+<p>Redo last commit with <code>--amend</code> option. The option replaces last commit with entirely a new. The old commit will not show up in repository history.</p>
+
+<p>To redo last commit with additional changes, changes need to be <em>staged</em> before then <code>git commit --amend</code></p>
+
+<p>If there is no changes since last commit, the new snapshot will be the same, only the commit message would be changed with the default editor.</p>
+
+<h3 id="unstaging-a-staged-file">Unstaging a Staged File</h3>
+
+<p>If a file was <em>staged</em> by mistake, it can be unstaged via <code>git reset HEAD &lt;file&gt;</code> command. This command also visible in <code>git status</code> command as tip on how to unstage a <em>staged</em> file.</p>
+
+<h3 id="unmodifying-a-modified-file">Unmodifying a Modified File</h3>
+
+<p>To revert a <em>modified</em>  file to what it was in the last commit can be achived via this command <code>git checkout -- &lt;file&gt;...</code>, which will . Again, This command also visible in <code>git status</code> command as tip on how to discard changes in working directory for a <em>modified</em> file.</p>
+
+<blockquote>
+<p>File status will be changed to <em>unmodified</em> after command</p>
+</blockquote>
+
+<h1 id="remote-reporsitories">Remote Reporsitories</h1>
+
+<p>Remote repositories are versions of a Git Repositories that are hosted on the Internet or network, allowing collaboratiion with others.</p>
+
+<h2 id="view-remotes">View Remotes</h2>
+
+<p>The command <code>git remote</code> lists the shortnames of each remote handle specified. Specifing the option <code>-v</code>,  shows the URLs that Git has stored for the shortname to be used when reading and writing to that remote.</p>
+
+<blockquote>
+<p>When a repository is cloned, there should be at least <em>origin</em>, the default name Git gives to the server of where cloned from.</p>
+</blockquote>
+
+<p><em>Example</em></p>
+
+<blockquote>
+<p>$ <code>git remote -v</code><br />
+origin  <a href="https://github.com/username/reponame">https://github.com/username/reponame</a> (fetch)<br />
+origin  <a href="https://github.com/username/reponame">https://github.com/username/reponame</a> (push)</p>
+</blockquote>
+
+<h2 id="adding-remote-repositories">Adding Remote Repositories</h2>
+
+<p>To explicitly add a new remote Git repository as a shortname, this command will do the job
+<code>git remote add &lt;shortname&gt; &lt;url&gt;</code></p>
+
+<blockquote>
+<p>remote <em>shortname</em> makes <strong>fetch</strong>, <strong>pull</strong>, and <strong>push</strong> commands easier to work with, than full length <em>URL</em>.</p>
+</blockquote>
+
+<h2 id="fetching-and-pulling">Fetching and Pulling</h2>
+
+<p>To get data from remote repositories, two commands are used; <strong>Fetch</strong> and <strong>Pull</strong> you can run:</p>
+
+<p><code>git fetch &lt;remote&gt;</code> command only downloads the data to local repository. it doesn’t automatically merge it with any of local work or modify it. Merge can bedone manually.</p>
+
+<p><code>git pull &lt;remote&gt;</code> command fetch and then automatically merge that remote branch into local current branch.</p>
+
+<blockquote>
+<p>Current branch should be setup to track a remote branch, for <strong>pull</strong> to work.</p>
+</blockquote>
+
+<h2 id="pushing">Pushing</h2>
+
+<p>To push newly <strong>committed</strong> work to a remote repository (<em>upstream</em>), this command can be used</p>
+
+<p><code>git push &lt;remote&gt; &lt;branch&gt;</code></p>
+
+<blockquote>
+<p>For the <strong>push</strong> command to work, write access on on the remote repository should be valid.</p>
+</blockquote>
+
+<p>Inspecting a Remote</p>
+
+<p>To see more information about a particular remote, <code>git remote show &lt;remote&gt;</code> command will do that for a particular shortname.</p>
+
+<p>It lists the URL for the remote repository and the tracking branch information:</p>
+
+<ul>
+<li>Which branch is automatically pushed to with <code>git push</code> command while on certain branches</li>
+<li>Which remote branches on the server not yet exist locally</li>
+<li>Which remote branches exists locally that have been removed from the server</li>
+<li>Multiple local branches that are able to merge automatically with their remote-tracking branch when run <code>git pull</code> command</li>
+</ul>
+
+<h2 id="renaming-and-removing-remotes">Renaming and Removing Remotes</h2>
+
+<p>To renamed a remote&rsquo;s shortname, <code>git remote rename &lt;old&gt; &lt;new&gt;</code> command is used. It will change all  remote-tracking branch names, too.</p>
+
+<p>To remove a remote, run <code>git remote remove &lt;remote-name&gt;</code> command. Or shorter command <code>git remote rm (remote-name&gt;</code>. All remote-tracking branches and configuration settings associated with removed remote are also deleted.</p>
+
+<h1 id="tagging">Tagging</h1>
+
+<p>Tags are used as an important and specific points of a repository.</p>
+
+<p>Listing the available tags is done with <code>git tag</code> command with optional <code>-l</code> or <code>--list</code> options. The tags are listed in alphabetical order, where the order in is not important.</p>
+
+<p>Passing particular pattern to <code>git tag -l</code> will return on tags that match the pattern.</p>
+
+<p><em>Example</em></p>
+
+<blockquote>
+<p>$ git tag -l &ldquo;v1.*&rdquo;<br />
+v1.0.1<br />
+v1.1</p>
+</blockquote>
+
+<h2 id="creating-tags">Creating Tags</h2>
+
+<p>Git supports two types of tags:</p>
+
+<ul>
+<li>Lightweight</li>
+<li>Annotated</li>
+</ul>
+
+<h3 id="lightweight-tags">Lightweight Tags</h3>
+
+<p>Similar to a <strong>Branch</strong> that is static, not changing. A simple pointer to a specific commit checksum saved in a file. Recommended as temporary tag.</p>
+
+<p>Creating a lightweight tags is done by simple passing a tag name to <code>git tag</code> command</p>
+
+<p><code>git tag &lt;tag-name&gt;</code></p>
+
+<h3 id="annotated-tags">Annotated Tags</h3>
+
+<p>A full copy of objects are stored in the <strong>Git</strong> database, along with checksum, taggers details, date, message and optionally signed and verified with GNU Privacy Guard (GPG).</p>
+
+<p>Creating an annotated tag is done be addtion the option <code>-a</code> with tag command.</p>
+
+<p><code>git tag -a &lt;tag-name&gt; -m &quot;tag-message&quot;</code></p>
+
+<p>To view a tag with its data (<strong>commit</strong>)</p>
+
+<p><code>git show &lt;tag&gt;</code></p>
+
+<h2 id="tagging-later">Tagging Later</h2>
+
+<p>In some cases, there might be need to take an old <strong>commit</strong>. It is possible to add a tag to a previous <strong>commit</strong>, by using the commit checksum (or part of it) at the end of the <code>git tag</code>.</p>
+
+<p><em>Example</em></p>
+
+<blockquote>
+<p>$ git tag -a v1.0 8ec1202</p>
+</blockquote>
+
+<h2 id="sharing-tags">Sharing Tags</h2>
+
+<p>To <strong>push</strong> <strong>tags</strong> to remote server, it has to explicitly pushed, as done with branches.</p>
+
+<p><code>git push origin &lt;tag-name&gt;</code></p>
+
+<p>To <strong>push</strong> all <strong>tags</strong> in repository at once.</p>
+
+<p><code>git push origin --tags</code></p>
+
+<h2 id="checking-out-tags">Checking out Tags</h2>
+
+<p>To view the files of repository at specifc tag, <code>git checkout &lt;tag-name&gt;</code> comamnd is used.</p>
+
+<blockquote>
+<p>Repository goes into <em>detached HEAD</em> state, which has some bad side effects</p>
+</blockquote>
+
+<p>In “detached HEAD” state, iAny changes <em>commited</em> in <em>detached HEAD</em> state, the tag will stay the same, but the new commit will not belong to any branch and will be unreachable, except by the exact commit hash.</p>
+
+<p>To create a <strong>branch</strong> based on a <strong>tag</strong> witg this command:</p>
+
+<p><code>git checkout -b &lt;branch-name&gt; &lt;tag-name&gt;</code></p>
+
+<h1 id="git-aliases">Git Aliases</h1>
+
+<p>To make using <strong>Git</strong> experience simpler, aliases can be used to replace long <strong>Git</strong> commands with customizable and short ones.</p>
+
+<p><em>Examples</em></p>
+
+<blockquote>
+<p><code>git config --global alias.unstage 'reset HEAD --'</code> replaces<br />
+<code>git unstage &lt;file&gt;</code> with<br />
+<code>git reset HEAD -- &lt;file&gt;</code></p>
+
+<p><code>git config --global alias.last 'log -1 HEAD'</code><br />
+lists last commit easily</p>
+</blockquote>
+
+<p>To run an external command, rather than a Git subcommand, The command should start with <strong>!</strong> character.</p>
+
+<p><em>Example</em></p>
+
+<blockquote>
+<p>`git config &ndash;global alias.visual &lsquo;!gitk&rsquo;</p>
+</blockquote>
+
+      </article>
+      
+    </main>
+    <nav class="end-nav side-padding">
+      
+      <a ontouchstart="cardPressed.call(this)" ontouchend="cardReleased.call(this)" ontouchmove="cardReleased.call(this)" 
+  href="http://secruim.io/" class="card home-card" style="background-image: url( /img/grey-cloud.jpg )" rel="bookmark" >
+  Home
+</a>
+    </nav>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://secruim.io/js/core.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+  </body>
+</html>

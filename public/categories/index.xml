@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Secrium</title>
+    <link>http://secruim.io/categories/</link>
+    <description>Recent content in Categories on Secrium</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="http://secruim.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Versioning</title>
+      <link>http://secruim.io/categories/versioning/</link>
+      <pubDate>Thu, 03 Jan 2019 00:48:56 +0200</pubDate>
+      
+      <guid>http://secruim.io/categories/versioning/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
