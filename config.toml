@@ -1,0 +1,12 @@
+baseURL = "http://secruim.io/"
+languageCode = "en-us"
+title = "Secrium"
+author = "Yahya Kharraz"
+canonifyurls = true
+paginate = 3
+theme = "aether"
+
+[params]
+brand = "Secrium"
+description = "Security Professionals Companion"
+bgimg = "/img/ignasi_pattern_s.png"
