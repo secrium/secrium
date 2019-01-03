@@ -2,12 +2,15 @@
 title: "Git 101"
 date: 2019-01-03T00:48:49+02:00
 draft: false
-description: "Introduction to version control with Git tool,  First part"
+description: "Introduction to version control with Git tool"
 categories: ["Versioning"]
-featuredImage: "/img/lucas-benjamin-565254-unsplash.jpg"
+featuredImage: "img/git-101.jpg"
 dropCap: true
 displayInMenu: false
 displayInList: true
+
+resources: 
+- src: "img/*.jpg"
 ---
 
 # What is Git?
@@ -236,7 +239,7 @@ Which can be done also by running
 
 *Example*
 
-```powershell
+```bash
 git log --pretty="%h - %s" --author=name --since="2017-10-01" --before="2017-11-01" |
 --no-merges -- t/
 ```

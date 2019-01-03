@@ -9,4 +9,4 @@ theme = "aether"
 [params]
 brand = "Secrium"
 description = "Security Professionals Companion"
-bgimg = "/img/ignasi_pattern_s.png"
+bgimg = "/img/background.png"

@@ -2,12 +2,15 @@
 title: "Git 102"
 date: 2019-01-03T00:48:56+02:00
 draft: false
-description: "Introduction to version control with Git tool, Second part"
+description: "More about Git tool"
 categories: ["Versioning"]
-featuredImage: "/img/lucas-benjamin-565254-unsplash.jpg"
+featuredImage: "img/git-102.jpg"
 dropCap: true
 displayInMenu: false
 displayInList: true
+
+resources: 
+- src: "img/*.jpg"
 ---
 
 # Branching
