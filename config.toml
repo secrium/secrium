@@ -4,7 +4,6 @@ title = "Secrium"
 author = "Yahya Kharraz"
 canonifyurls = true
 paginate = 3
-theme = "aether"
 
 [params]
 brand = "Secrium"
