@@ -203,6 +203,7 @@ Which can be done also by running
 `git log` is a power command to view the history of changes within a repository. The command output is in reverse chronological order and has SHA-1 checksum, the author’s name and email, the date written, and the commit message.
 
 **Options**
+
 |command options|description|
 |---|---|
 |`-p`, `--patch`|shows the difference (the patch output) introduced in each commit (*output: add a diff directly following each entry*)|
