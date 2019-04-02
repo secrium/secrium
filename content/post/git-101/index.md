@@ -221,6 +221,7 @@ Which can be done also by running
 `git log` has limiting options to show only a subset of commits.
 
 **Options**
+
 |Option|Description|
 |---|---|
 |`-<n>`|only the last n commits|
