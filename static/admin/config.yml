@@ -2,8 +2,6 @@ backend:
   name: git-gateway
   branch: master
 
-publish_mode: editorial_workflow
-
 media_folder: "static/img/upload"
 public_folder: "img/upload"
 
@@ -13,7 +11,13 @@ collections:
     folder: "content/post" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
     fields: # The fields for each document, usually in front matter
-      - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {lable: "Draft", name: "draft", widget: "boolean"}
+      - {label: "Description", name: "description", widget: "string"}
+      - {label: "Categories", name: "categories", widget: "string"}
+      - {label: "Featured Image", name: "featuredImage", widget: "image"}
+      - {lable: "Drop Cap", name: "dropCap", widget: "boolean"}
+      - {lable: "Display in Menu", name: "displayInMenu", widget: "boolean"}
+      - {lable: "Display in List", name: "displayInList", widget: "boolean"}
       - {label: "Body", name: "body", widget: "markdown"}
