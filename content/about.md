@@ -7,4 +7,5 @@ dropCap : false
 ---
 
 Keep posted for what to come!!!
+New changes coming soon.
 
